@@ -1,72 +1,55 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        jobbase
-      </h1>
-      <h2 class="subtitle">
-        A job listing online platform
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+   <div>
+      <v-toolbar app dark class="white">
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Vuetify &nbsp;</span>
+        <span class="font-weight-bold" color="black">MATERIAL DESIGN</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        flat
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+      >
+        <span class="mr-2">Latest Release</span>
+      </v-btn>
+    </v-toolbar>
+    <v-carousel
+      cycle
+      height="365"
+      hide-delimiter-background
+      show-arrows-on-hover
+      class="mt-2"
+    >
+      <v-carousel-item
+        v-for="(item,i) in items"
+        :key="i"
+        :src="item.src"
+        reverse-transition="fade-transition"
+        transition="fade-transition"
+      ></v-carousel-item>
+    </v-carousel>
+    <v-content>
+    </v-content>
+   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+    data () {
+      return {
+        items: [
+          {
+            src: 'https://res.cloudinary.com/an-apluss/image/upload/v1576356836/job-listing/home1.jpg',
+          },
+          {
+            src: 'https://res.cloudinary.com/an-apluss/image/upload/v1576356836/job-listing/home2.jpg',
+          },
+          {
+            src: 'https://res.cloudinary.com/an-apluss/image/upload/v1576356836/job-listing/home3.jpg',
+          }
+        ]
+      }
+    },
   }
-}
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
