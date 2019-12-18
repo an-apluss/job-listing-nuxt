@@ -1,8 +1,19 @@
 <template>
   <v-app>
+    <Navigation />
     <nuxt />
   </v-app>
 </template>
+
+<script>
+import Navigation from '@/components/Navigation'
+
+export default {
+  components: {
+    Navigation
+  }
+}
+</script>
 
 <style>
 *,
