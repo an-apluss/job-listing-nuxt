@@ -1,11 +1,9 @@
 <template>
    <div>
     <v-container >
-      <nuxt-link to="/">
-        <v-btn class="ma-2" color="orange darken-2" dark>
-          <v-icon dark left>mdi-arrow-left</v-icon>Back
-        </v-btn>
-      </nuxt-link>
+      <v-btn @click="previouRoute" class="ma-2" color="orange darken-2" dark>
+        <v-icon dark left>mdi-arrow-left</v-icon>Back
+      </v-btn>
       <v-row align="center">
         <v-col
           cols="12"
@@ -67,6 +65,12 @@ export default {
     ...mapState({
       job: state => state.jobs.job
     })
+  },
+
+  methods: {
+    previouRoute() {
+      this.$router.back()
+    }
   }
 }
 </script>
