@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-toolbar dark class="white">
-    <v-toolbar-title class="headline text-uppercase">
-      <span>Vuetify &nbsp;</span>
-      <nuxt-link to="/" class="font-weight-bold black--text">JOBBASE</nuxt-link>
-    </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <nuxt-link to="/signin" class="teal--text mr-3">Signin</nuxt-link>
-    <nuxt-link to="/register" class="teal--text mr-5">Register</nuxt-link>
+      <v-toolbar-title class="headline text-uppercase ml-10">
+        <nuxt-link to="/" class="font-weight-bold black--text">JOBBASE</nuxt-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn class="teal--text text-capitalize" nuxt href="/signin" exact color="white">signin</v-btn>
+      <v-btn class="teal--text mr-10 text-capitalize" nuxt href="/register" exact color="white">Register</v-btn>
     </v-toolbar>
   </div>
 </template>
+

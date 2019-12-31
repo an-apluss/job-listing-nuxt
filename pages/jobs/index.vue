@@ -1,21 +1,32 @@
 <template>
-   <div>
-    <v-carousel
-      cycle
-      height="450"
-      hide-delimiter-background
-      show-arrows-on-hover
-      class="mt-4 mb-9"
-    >
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.src"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
-    </v-carousel>
-    <v-container >
+  <div v-if="user">
+    <h1>Available Jobs</h1>
+    <div v-if="user.is_admin">
+      <v-simple-table dense>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">Company Name</th>
+              <th class="text-left">Job Title</th>
+              <th class="text-left">Job Industry</th>
+              <th class="text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="job in jobs" :key="job.id">
+              <td>{{ job.company }}</td>
+              <td>{{ job.title }}</td>
+              <td>{{ job.industry }}</td>
+              <td>
+                <v-btn class="" outlined color="gray">Edit</v-btn>
+                <v-btn outlined color="error">Delete</v-btn>
+              </td> 
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </div>
+    <div v-else>
       <v-row align="center">
         <v-col
           v-for="job in jobs"
@@ -29,8 +40,6 @@
         >
           <v-card
             class="pa-2"
-            :href="`jobs/${job.id}/view`"
-            hover
           >
             <v-card-text class="teal white--text">
               <h2>{{job.company}}</h2>
@@ -103,50 +112,42 @@
                 {{job.location}}
               </p>
             </v-card-text>
+            <div class="text-center">
+              <v-btn :href="`jobs/${job.id}/view`" color="white" class="text-capitalize mr-3" small>Details</v-btn>
+              <v-btn color="white" class="text-capitalize" small>Apply</v-btn>
+            </div>
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
-   </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-export default {
-  data () {
-    return {
-      items: [
-        {
-          src: 'https://res.cloudinary.com/an-apluss/image/upload/v1576356836/job-listing/home1.jpg',
-        },
-        {
-          src: 'https://res.cloudinary.com/an-apluss/image/upload/v1576356836/job-listing/home2.jpg',
-        },
-        {
-          src: 'https://res.cloudinary.com/an-apluss/image/upload/v1576356836/job-listing/home3.jpg',
-        }
-      ],
+export default { 
+  layout: 'dashboard',
+  
+  async fetch({store, redirect}) {
+    if (!store.state.auth.user) {
+      redirect('/signin')
     }
-  },
 
+    await store.dispatch('auth/fetch')
+    await store.dispatch('jobs/fetchAllJob')
+  },
+  
   head () {
     return {
-      title: 'Jobbase | Home'
+      title: 'Jobbase | Jobs'
     }
-  },
-
-  async fetch({store, redirect}) {
-    if (store.state.auth.user) {
-      redirect('/dashboard')
-    }
-
-    await store.dispatch('jobs/fetchAllJob')
   },
 
   computed: {
     ...mapState({
-      jobs: state => state.jobs.list
+      user: state => state.auth.user,
+      jobs: state => state.jobs.list,
     })
   }
 }

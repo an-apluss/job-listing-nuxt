@@ -40,6 +40,12 @@
 export default {
   layout: 'nonavigation',
 
+  fetch({store, redirect}) {
+    if (store.state.auth.user) {
+      redirect('/dashboard')
+    }
+  },
+
   head () {
     return {
       title: 'Jobbase | Signin'
